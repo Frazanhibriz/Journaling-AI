@@ -1,7 +1,6 @@
 import streamlit as st
-from streamlit_lottie import st_lottie
 import plotly.express as px
-import requests
+import pandas as pd
 from src.predictor import predict_hybrid_emotion
 from src.utils import load_model, highlight_emotion_words
 
@@ -10,6 +9,7 @@ st.set_page_config(
     page_icon="🧠",
     layout="wide"
 )
+
 
 st.markdown("""
     <style>
@@ -63,14 +63,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-def load_lottie(url):
-    r = requests.get(url)
-    if r.status_code == 200:
-        return r.json()
-    return None
-
-lottie_ai = load_lottie("https://assets1.lottiefiles.com/packages/lf20_jcikwtux.json")
-
 st.sidebar.header("🧭 Tentang Aplikasi")
 st.sidebar.markdown("""
 AI ini menganalisis **emosi dominan** dari tulisan harianmu menggunakan:
@@ -83,14 +75,8 @@ st.sidebar.caption("💡 Tulis jurnal dengan detail agar hasil analisis makin ak
 
 tokenizer_indo, model_indo, tokenizer_xlmr, model_xlmr, labels, id2label = load_model()
 
-col1, col2 = st.columns([1.5, 1])
-with col1:
-    st.title("🧠 AI Journaling Emotion Analyzer")
-    st.markdown("Tuliskan jurnal harianmu di bawah ini dan biarkan AI memahami suasana hatimu 💭")
-
-with col2:
-    if lottie_ai:
-        st_lottie(lottie_ai, height=200, key="ai_emo")
+st.title("🧠 AI Journaling Emotion Analyzer")
+st.markdown("Tuliskan jurnal harianmu di bawah ini dan biarkan AI memahami suasana hatimu 💭")
 
 user_input = st.text_area(
     "📝 Tulis jurnalmu di sini:",
@@ -114,11 +100,6 @@ if st.button("🔍 Analisis Emosi"):
         """, unsafe_allow_html=True)
 
         dist = result["emotion_distribution"]
-        df_plot = (
-            px.data.tips()
-        )  # placeholder replaced below
-
-        import pandas as pd
         df_plot = pd.DataFrame({
             "Emotion": list(dist.keys()),
             "Confidence": list(dist.values())
