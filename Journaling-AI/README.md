@@ -7,7 +7,7 @@
 ## 📘 Overview
 
 This API predicts emotional states (anger, fear, joy, sad) from user journaling text in Indonesian.
-It combines two fine-tuned transformer models — **IndoBERTweet** and **XLM-R** — to improve robustness and contextual understanding.
+It combines two fine-tuned transformer models **IndoBERTweet** and **XLM-R** to improve robustness and contextual understanding.
 
 ---
 
