@@ -17,7 +17,7 @@ It combines two fine-tuned transformer models **IndoBERTweet** and **XLM-R** to 
 - Emotion classification: `anger`, `fear`, `joy`, `sad`
 - Keyword-based emotion reinforcement
 - CORS-ready for web integration
-- Deployable to Render, Railway, or GCP
+- Deployable to Hugging Face and Streamlit
 
 ---
 
