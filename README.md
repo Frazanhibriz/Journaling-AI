@@ -1,69 +1,103 @@
 # 🧠 AI-Powered Journaling Emotion Analyzer
 
-> **End-to-End NLP System** untuk menganalisis emosi dari teks journaling Bahasa Indonesia menggunakan pendekatan **Hybrid Ensemble (IndoBERTweet + XLM-RoBERTa)**.
+> An end-to-end NLP system designed to analyze emotional states from Indonesian journaling text using a hybrid transformer-based approach.
 
 ---
 
 ## 🌟 Overview
-Proyek ini dikembangkan untuk membantu individu memahami kondisi emosional mereka melalui journaling. AI ini mampu mendeteksi 4 emosi dasar (**Anger, Fear, Joy, Sad**) dengan akurasi tinggi, bahkan pada teks yang panjang dan menggunakan bahasa sehari-hari (informal).
 
-### Key Features:
-- **Hybrid Architecture:** Menggabungkan kekuatan **IndoBERTweet** (slang-heavy) dan **XLM-RoBERTa** (context-heavy).
-- **Long-Text Support:** Implementasi *Sliding Window Chunking* untuk memproses teks jurnal yang melebihi 512 token.
-- **Rule-Based Reinforcement:** Integrasi logika berbasis leksikon untuk menstabilkan prediksi model deep learning.
-- **Interactive Dashboard:** Visualisasi distribusi emosi yang interaktif menggunakan Streamlit dan Plotly.
+This project aims to help individuals better understand their emotional patterns through daily journaling. By leveraging natural language processing, the system classifies text into four primary emotions: **Anger, Fear, Joy, and Sadness**.
+
+The system is specifically designed to handle **informal Indonesian language**, including slang, mixed expressions, and long-form writing, which are commonly found in personal journals.
 
 ---
 
-## 🏗️ Architecture & Methodology
+## 🚀 Key Features
 
-### 1. Hybrid Ensemble Strategy
-Mengapa menggunakan dua model?
-*   **IndoBERTweet:** Sangat optimal untuk menangani teks informal, slang, dan singkatan khas Indonesia.
-*   **XLM-RoBERTa:** Memberikan pemahaman konteks semantik yang lebih luas dan stabil pada struktur kalimat kompleks.
-*   **Fusion Logic:** Sistem melakukan *Averaging Softmax Probabilities* dari kedua model untuk mendapatkan hasil akhir yang lebih robust dibandingkan model tunggal.
+- **Hybrid Model Architecture**  
+  Combines multiple transformer models to improve prediction stability and accuracy.
 
-### 2. Handling Long-Form Journaling (Chunking)
-Model Transformer memiliki batasan 512 token. Untuk menangani jurnal yang panjang, sistem ini secara otomatis:
-1.  Membagi teks menjadi beberapa **chunks** (potongan).
-2.  Melakukan inferensi pada setiap potongan secara independen.
-3.  Melakukan agregat hasil menggunakan **Mean Probability** untuk menentukan emosi dominan secara keseluruhan.
+- **Long Text Support**  
+  Handles journaling entries beyond token limits using a chunk-based processing approach.
 
-### 3. Heuristic Reinforcement
-Untuk meningkatkan *confidence*, sistem dilengkapi dengan *Emotion Keywords Reinforcement* yang memberikan bobot tambahan jika ditemukan kata-kata emosional eksplisit (seperti "kecewa", "bahagia", "takut") dalam teks.
+- **Heuristic Enhancement**  
+  Incorporates keyword-based reinforcement to refine predictions.
+
+- **Interactive Dashboard**  
+  Visualizes emotion distribution through an intuitive interface.
 
 ---
 
-## 📊 Performance (Internal Benchmark)
-Sistem ini telah diuji menggunakan dataset journaling yang disingkronkan secara lokal dengan hasil sebagai berikut:
+## 🏗️ Methodology
+
+### 1. Hybrid Ensemble Approach
+
+This project utilizes two pretrained models with complementary strengths:
+
+- **IndoBERTweet**  
+  Optimized for informal Indonesian text, including slang and conversational writing.
+
+- **XLM-RoBERTa**  
+  Provides stronger contextual understanding for more structured and complex sentences.
+
+The final prediction is obtained by averaging the softmax probabilities from both models, resulting in more robust outputs compared to a single-model approach.
+
+---
+
+### 2. Handling Long Text Inputs
+
+Transformer models are limited to 512 tokens. To address this, the system implements a **sliding window strategy**:
+
+1. Split input text into smaller segments  
+2. Perform inference on each segment  
+3. Aggregate predictions using mean probability  
+
+This approach ensures consistent performance even on lengthy journal entries.
+
+---
+
+### 3. Rule-Based Reinforcement
+
+To complement model predictions, a lightweight rule-based mechanism is applied.
+
+If explicit emotional keywords (e.g., *“bahagia”*, *“takut”*, *“kecewa”*) are detected, the system slightly adjusts prediction confidence. This helps reduce misclassification in certain edge cases.
+
+---
+
+## 📊 Performance
+
+The model was evaluated on a locally curated Indonesian journaling dataset.
 
 | Metric | Score |
-|:---|:---|
-| **Overall Accuracy** | **91%** |
-| **Avg. F1-Score** | **0.91** |
+|------|------|
+| Accuracy | 91% |
+| Average F1-Score | 0.91 |
 
-**F1-Score per Category:**
-- 🔴 **Anger:** 0.92
-- 🟡 **Fear:** 0.92
-- 🟢 **Joy:** 0.93
-- 🔵 **Sad:** 0.89
-
----
-
-## 🛠️ Technical Stack
-- **Deep Learning:** PyTorch, Hugging Face Transformers
-- **Models:** [IndoBERTweet](https://huggingface.co/Frazanhibriz/indobertweet_journal_ensemble_v1) & [XLM-RoBERTa](https://huggingface.co/Frazanhibriz/xlmr_journal_v1)
-- **Deployment:** FastAPI (Backend) & Streamlit (Frontend)
-- **Visualization:** Plotly, Pandas
+**F1-Score by Class:**
+- Anger: 0.92  
+- Fear: 0.92  
+- Joy: 0.93  
+- Sadness: 0.89  
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech Stack
 
-### Installation
+- **Frameworks:** PyTorch, Hugging Face Transformers  
+- **Models:** IndoBERTweet, XLM-RoBERTa  
+- **Backend:** FastAPI  
+- **Frontend:** Streamlit  
+- **Visualization:** Plotly, Pandas  
+
+---
+
+## ⚙️ Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/Frazanhibriz/Journaling-AI.git
+
+# Navigate to project directory
 cd Journaling-AI
 
 # Install dependencies
