@@ -1,6 +1,9 @@
 # 🧠 AI-Powered Journaling Emotion Analyzer
 
-> An end-to-end NLP system designed to analyze emotional states from Indonesian journaling text using a hybrid transformer-based approach.
+An end-to-end NLP system designed to analyze emotional states from Indonesian journaling text using a hybrid transformer-based approach.
+
+## 🔗 Live Demo
+**[👉 Click here to access the Journaling Emotion Analyzer](https://journaling-ai-wxezxtuvelhaxmbktwd7aw.streamlit.app/)**
 
 ---
 
